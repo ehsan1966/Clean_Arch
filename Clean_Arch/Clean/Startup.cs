@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Clean.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using CleanArch.Data.Context;
 
 namespace Clean
 {
@@ -39,6 +40,11 @@ namespace Clean
                     Configuration.GetConnectionString("UniversityIdentityDBConecnection")));
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddDbContext<UniversityDbContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("UniversityDBConnection"));
+            });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
